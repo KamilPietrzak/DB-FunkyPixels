@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.webp" alt="Funky Pixels logo." height=150 width=150>
+  <img src="https://pub-36399e9fe63f47ea950608686819ce35.r2.dev/project_funkypixels_logo.webp" alt="Funky Pixels logo." height=150 width=150>
 </p>
 <h1 align="center">DB Funky Pixels</h1>
 <p align="center">
@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="db-diagram.svg" alt="Database schema made in www.draw.io">
+  <img src="https://pub-36399e9fe63f47ea950608686819ce35.r2.dev/project_funkypixels_schema.svg" alt="Database schema made in www.draw.io">
 </p>
 <p><i>Database schema made in www.draw.io.</i></p>
 
@@ -24,7 +24,7 @@ It is worth remembering that the project was prepared for educational purposes, 
 </ul>
 
 <h2>🤖 Information on the use of AI</h2>
-<h3>Logo/<a href="logo.webp" alt="Link to logo.webp file.">logo.webp</a></p></h3>
+<p><b>Logo/<a href="logo.webp" alt="Link to logo.webp file.">logo.webp</a></b></p>
 <p>Logo created by <a href="https://app.leonardo.ai" alt="Link to Leonardo.ai.">Leonardo.ai</a>. Model Leonardo Diffusion.
   
 <span>Prompt:</span>
@@ -64,7 +64,7 @@ SOFTWARE.
 <p align="center"><b>monetapietrzak@gmail.com</b></p>
 <br>
 <hr>
-<h3 align="center">Find me also...</h3>
+<p align="center"><b>Find me also...</b></p>
 <p align="center">
   <a href="https://twitter.com/Moneta_Pietrzak" alt="Link to profile Kamil Pietrzak 'Moneta' in X (Twitter).">X (Twitter)</a> |
   <a href="https://www.linkedin.com/in/kamil-pietrzak-wroc/" alt="Link to profile Kamil Pietrzak 'Moneta' in LinkedIn.">LinkedIn</a> |
