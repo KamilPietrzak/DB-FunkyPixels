@@ -1,5 +1,6 @@
 from colorama import *
 from dotenv import load_dotenv
+from pathlib import *
 import os
 import psycopg2 as db
 
@@ -22,6 +23,8 @@ print("\n" + Fore.BLUE + "======================================================
 print("\n" + Back.MAGENTA + Fore.BLACK + "Email:" + Back.RESET + Fore.MAGENTA + " monetapietrzak@gmail.com")
 print("\n" + Back.MAGENTA + Fore.BLACK + "Website:" + Back.RESET + Fore.MAGENTA + " www.monetapietrzak.com")
 print("\n" + Fore.BLUE + "=======================================================================================================")
+
+print(".env is exist?: " + str(Path('.env').exists()))
 
 try:
     db.connect(host=os.getenv('HOST'), port=os.getenv('PORT'), user=os.getenv('USER'), password=os.getenv('PASSWORD'))
