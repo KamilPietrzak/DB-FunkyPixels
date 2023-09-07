@@ -9,6 +9,7 @@ if __name__ == '__main__':
     init(autoreset=True)
 
     hey.dog()
-    test=OperationsDataBase.test()
+    OperationsDataBase()
+
 
 

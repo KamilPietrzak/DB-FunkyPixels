@@ -4,7 +4,7 @@ import psycopg2
 
 def connect():
     try:
-      connect=psycopg2.connect(host=getenv('HOST'), port=getenv('PORT'), user=getenv('USER'), password=getenv('PASSWORD'), dbname="Test")
+      connect=psycopg2.connect(host=getenv('HOST'), port=getenv('PORT'), user=getenv('USER'), password=getenv('PASSWORD'))
     except psycopg2.OperationalError:
         raise ConnectOperationalError()
     except Exception as error:
@@ -12,8 +12,12 @@ def connect():
     else:
         raise ConnectSuccess(connect)
 
-class OperationsDataBase:
-    def test():
+class OperationsDataBase():
+    def __init__(self):
+        self.cur=None
+        self.__run()
+
+    def __connect(self):
         try:
             connect()
         except ConnectOperationalError as e:
@@ -21,8 +25,7 @@ class OperationsDataBase:
         except ConnectSomthingWentWrong as e:
             print(e.message)
         except ConnectSuccess as e:
-            cur=e.connect.cursor()
-            cur.execute("SELECT * FROM test")
-            cur.fetchone()
-            for record in cur:
-                print(record)
+            self.cur=e.connect.cursor()
+    
+    def __run(self):
+        self.__connect()
