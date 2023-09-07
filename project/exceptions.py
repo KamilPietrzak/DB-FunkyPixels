@@ -19,7 +19,7 @@ class ConnectSomthingWentWrong(Exception):
         self.message = Back.RED + Fore.BLACK + "Error:" + Back.RESET + Fore.RED + " " + str(error)
         super().__init__(self.message)
 
-class ConnectSucess(Exception):
-    def __init__(self, db):
-        self.db=db
-        super().__init__(self.db)
+class ConnectSuccess(Exception):
+    def __init__(self, connect):
+        self.connect=connect
+        super().__init__(self.connect)

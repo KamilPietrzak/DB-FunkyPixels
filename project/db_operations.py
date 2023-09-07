@@ -1,18 +1,18 @@
 from os import getenv
-from exceptions import ConnectOperationalError, ConnectSomthingWentWrong, ConnectSucess
+from exceptions import ConnectOperationalError, ConnectSomthingWentWrong, ConnectSuccess
 import psycopg2
 
 def connect():
     try:
-      db=psycopg2.connect(host=getenv('HOST'), port=getenv('PORT'), user=getenv('USER'), password=getenv('PASSWORD'), dbname="Test")
+      connect=psycopg2.connect(host=getenv('HOST'), port=getenv('PORT'), user=getenv('USER'), password=getenv('PASSWORD'), dbname="Test")
     except psycopg2.OperationalError:
         raise ConnectOperationalError()
     except Exception as error:
         raise ConnectSomthingWentWrong(error)
     else:
-        raise ConnectSucess(db)
+        raise ConnectSuccess(connect)
 
-class OperationDataBase:
+class OperationsDataBase:
     def test():
         try:
             connect()
@@ -20,8 +20,8 @@ class OperationDataBase:
             print(e.message)
         except ConnectSomthingWentWrong as e:
             print(e.message)
-        except ConnectSucess as d:
-            cur=d.db.cursor()
+        except ConnectSuccess as e:
+            cur=e.connect.cursor()
             cur.execute("SELECT * FROM test")
             cur.fetchone()
             for record in cur:
