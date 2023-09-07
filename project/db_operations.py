@@ -17,7 +17,7 @@ def connect():
 
 class OperationsDataBase():
     def __init__(self):
-        self.cur=None
+        self.cur=self.__connect()
         self.__run()
 
     def __connect(self):
@@ -30,8 +30,7 @@ class OperationsDataBase():
             print(e.message)
             return exit(1)
         except ConnectSuccess as e:
-            self.cur=e.connect.cursor()
-            return
+            return e.connect.cursor()
     
     def __run(self):
-        self.__connect()
+        pass #Next step
