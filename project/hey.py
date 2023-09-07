@@ -19,3 +19,4 @@ def dog():
     print("\n" + Back.MAGENTA + Fore.BLACK + "Website:" + Back.RESET + Fore.MAGENTA + " www.monetapietrzak.com")
     print("\n" + Fore.BLUE + "===========================================================================================================")
     print("\n\n")
+    return

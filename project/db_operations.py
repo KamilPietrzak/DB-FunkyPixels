@@ -1,4 +1,5 @@
 from os import getenv
+from sys import exit
 from exceptions import ConnectOperationalError, ConnectSomthingWentWrong, ConnectSuccess
 import psycopg2
 
@@ -11,6 +12,8 @@ def connect():
         raise ConnectSomthingWentWrong(error)
     else:
         raise ConnectSuccess(connect)
+    finally:
+        del connect
 
 class OperationsDataBase():
     def __init__(self):
@@ -22,10 +25,13 @@ class OperationsDataBase():
             connect()
         except ConnectOperationalError as e:
             print(e.message)
+            return exit(1)
         except ConnectSomthingWentWrong as e:
             print(e.message)
+            return exit(1)
         except ConnectSuccess as e:
             self.cur=e.connect.cursor()
+            return
     
     def __run(self):
         self.__connect()
