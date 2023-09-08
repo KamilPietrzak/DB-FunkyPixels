@@ -35,10 +35,7 @@ class OperationsDataBase():
     def __connect(self):
         try:
             connect()
-        except ConnectOperationalError as e:
-            print(e.message)
-            return exit(1) # Immediately terminates the program.
-        except ConnectSomethingWentWrong as e:
+        except (ConnectOperationalError or ConnectSomethingWentWrong) as e:
             print(e.message)
             return exit(1) # Immediately terminates the program.
         except ConnectSuccess as e:
