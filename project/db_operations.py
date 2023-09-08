@@ -20,8 +20,6 @@ def connect():
         raise ConnectSomethingWentWrong(error)
     else:
         raise ConnectSuccess(connect)
-    finally:
-        del connect
 
 # A class OperationsDataBase used to execute all required operations, such as 'CREATE DATABASE', 'USE DATABASE', 'CREATE TABLE' and create 'curse', to create a database.
 class OperationsDataBase():
