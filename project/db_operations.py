@@ -17,7 +17,7 @@ def connect():
     except psycopg2.OperationalError:
         raise ConnectOperationalError()
     except Exception as error:
-        raise ConnectSomthingWentWrong(error)
+        raise ConnectSomethingWentWrong(error)
     else:
         raise ConnectSuccess(connect)
     finally:
@@ -40,7 +40,7 @@ class OperationsDataBase():
         except ConnectOperationalError as e:
             print(e.message)
             return exit(1) # Immediately terminates the program.
-        except ConnectSomthingWentWrong as e:
+        except ConnectSomethingWentWrong as e:
             print(e.message)
             return exit(1) # Immediately terminates the program.
         except ConnectSuccess as e:

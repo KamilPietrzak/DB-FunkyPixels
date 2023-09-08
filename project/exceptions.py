@@ -22,7 +22,7 @@ class ConnectOperationalError(Exception):
 
 # This defined Exception has a message that provides information about unexpected exceptions.
 # This class is called when psycopg2 is trying to connect with the database and raises any Exception except the OperationalError exception.
-class ConnectSomthingWentWrong(Exception):
+class ConnectSomethingWentWrong(Exception):
     def __init__(self, error):
         self.message = Back.RED + Fore.BLACK + "Error:" + Back.RESET + Fore.RED + " " + str(error)
         super().__init__(self.message) # Call the __init__() method in the parent class (Exception) and pass the variable 'self.message'.
