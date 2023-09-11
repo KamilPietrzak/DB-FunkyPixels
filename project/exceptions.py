@@ -1,12 +1,14 @@
+from sys import exit # Import exit function from sys.
 from colorama import * # Import all from the colorama package.
 
-# This defined Exception has a message that provides information about .env file error.
+# This defined Exception has a message that provides information about .env file error or database error.
 # This class is called when psycopg2 is trying to connect with the database and raises the OperationalError exception. 
 # Situations in which when psycopg2 raises the OperationalError exception for psycopg2.connect() function:
 # - the .env file is not exist,
 # - some rquired variables is missed,
 # - some of the variable values are incorrect,
 # - the database doesn't exist.
+# The __executexception() method is used to display the error message and terminate the program immediately.
 class ConnectOperationalError(Exception):
     def __init__(self):
         self.message = Back.RED + Fore.BLACK + "Error:" + Back.RESET + Fore.RED + """ 
@@ -22,18 +24,20 @@ class ConnectOperationalError(Exception):
         USER= 'postgres'
         PASSWORD = 'password'
         """
-        super().__init__(self.message) # Call the __init__() method in the parent class (Exception) and pass the variable 'self.message'.
+        self.__executexception()
+
+    def __executexception(self):
+        print(self.message)
+        return exit(1) #Terminate the program immediately.
 
 # This defined Exception has a message that provides information about unexpected exceptions.
 # This class is called when psycopg2 is trying to connect with the database and raises any Exception except the OperationalError exception.
+# The __executexception() method is used to display the error message and terminate the program immediately.
 class ConnectSomethingWentWrong(Exception):
     def __init__(self, error):
         self.message = Back.RED + Fore.BLACK + "Error:" + Back.RESET + Fore.RED + " " + str(error)
-        super().__init__(self.message) # Call the __init__() method in the parent class (Exception) and pass the variable 'self.message'.
+        self.__executexception()
 
-# This defined Exception is raised when psycopg2 attempts to connect with the database, and the database connection attempt is successful.
-# This class has a variable called 'connect,' which includes a connection class from psycopg2.
-class ConnectSuccess(Exception):
-    def __init__(self, connect):
-        self.connect=connect
-        super().__init__(self.connect) # Call the __init__() method in the parent class (Exception) and pass the variable 'self.connect'.
+    def __executexception(self):
+        print(self.message)
+        return exit(1) #Terminate the program immediately.

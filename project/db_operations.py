@@ -1,5 +1,4 @@
 from os import getenv # Import getenv function from os.
-from sys import exit # Import exit function from sys.
 from exceptions import * # Import exceptions function from exceptions.py.
 import psycopg2 # Import all from the psycopg2 package.
 
@@ -9,17 +8,14 @@ import psycopg2 # Import all from the psycopg2 package.
 # then the connect() function raises a ConnectSomethingWentWrong exception with a parameter called 'error', 
 # including the raised Exception from psycopg2.connect().
 # If psycopg2.connect() doesn't raise any Exception, then that means the connection is successful. 
-# The connect() function set autocommit on True and raises a ConnectSuccess exception with a variable called 'connect,' indicating a connection class.
+# The connect() function return connection class.
 def connect():
     try:
-      connect=psycopg2.connect(host=getenv('HOST'), port=getenv('PORT'), user=getenv('USER'), password=getenv('PASSWORD'), dbname="dbfunkypixels")
+      return psycopg2.connect(host=getenv('HOST'), port=getenv('PORT'), user=getenv('USER'), password=getenv('PASSWORD'), dbname="dbfunkypixels")
     except psycopg2.OperationalError:
         raise ConnectOperationalError()
     except Exception as error:
         raise ConnectSomethingWentWrong(error)
-    else:
-        connect.autocommit = True
-        raise ConnectSuccess(connect)
 
 # A class OperationsDatabase used to execute all required operations, such as 'CREATE TABLE', to create a database.
 class OperationsDatabase():
@@ -31,16 +27,11 @@ class OperationsDatabase():
         self.cur=self.con.cursor()
         self.__run()
 
-    # The __connect() method tries to execute the connect() function. If the method encounters a ConnectOperationalError exception or a ConnectSomethingWentWrong exception,
-    # then the method prints an error message and immediately terminates the program. Otherwise, it returns the connection class.
+    # The __connect() method execute the connect() function, set autocommit on True and return the variable colled 'conn' as the connection class.
     def __connect(self):
-        try:
-            connect()
-        except (ConnectOperationalError or ConnectSomethingWentWrong) as e:
-            print(e.message)
-            return exit(1) # Immediately terminates the program.
-        except ConnectSuccess as e:
-            return e.connect
+        with connect() as conn:
+            conn.autocommit = True
+            return conn
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
