@@ -9,8 +9,7 @@ import psycopg2 # Import all from the psycopg2 package.
 # then the connect() function raises a ConnectSomethingWentWrong exception with a parameter called 'error', 
 # including the raised Exception from psycopg2.connect().
 # If psycopg2.connect() doesn't raise any Exception, then that means the connection is successful. 
-# The connect() function raises a ConnectSuccess exception with a variable called 'connect,' indicating a connection class.
-# Finally delete the 'connect' variable.
+# The connect() function set autocommit on True and raises a ConnectSuccess exception with a variable called 'connect,' indicating a connection class.
 def connect():
     try:
       connect=psycopg2.connect(host=getenv('HOST'), port=getenv('PORT'), user=getenv('USER'), password=getenv('PASSWORD'))
@@ -21,8 +20,8 @@ def connect():
     else:
         raise ConnectSuccess(connect)
 
-# A class OperationsDataBase used to execute all required operations, such as 'CREATE DATABASE', 'USE DATABASE', 'CREATE TABLE' and create 'curse', to create a database.
-class OperationsDataBase():
+# A class OperationsDatabase used to execute all required operations, such as 'CREATE TABLE', to create a database.
+class OperationsDatabase():
 
     # The init() method first calls the __connect() method in order to obtain the connection class. After that, 
     # the method calls the __run() method in order to execute the next step.

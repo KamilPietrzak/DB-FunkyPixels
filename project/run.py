@@ -2,7 +2,7 @@
 from dotenv import load_dotenv  # Import load_dotenv from the python-dotenv package.
 from colorama import just_fix_windows_console, init # Import just_fix_windows_console and init from the colorama package.
 # Import files
-from db_operations import OperationsDataBase # Import class OperationsDataBase from the db_operations.py file.
+from db_operations import OperationsDatabase # Import class OperationsDatabase from the db_operations.py file.
 import hey # Import all from the hey.py file.
 
 
@@ -13,4 +13,4 @@ if __name__ == '__main__':
     init(autoreset=True) # Init autostart style for colorama. Every prints have reset styles.
 
     hey.dog() # Call function dog() from hey.py file.
-    OperationsDataBase() # Call class OperationsDataBase() from db_operations.py file.
+    OperationsDatabase() # Call class OperationsDatabase() from db_operations.py file.
