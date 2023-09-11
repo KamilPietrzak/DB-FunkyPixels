@@ -27,7 +27,8 @@ class OperationsDatabase():
     # The init() method first calls the __connect() method in order to obtain the connection class. After that, 
     # the method calls the __run() method in order to execute the next step.
     def __init__(self):
-        self.cur=self.__connect()
+        self.con=self.__connect()
+        self.cur=self.con.cursor()
         self.__run()
 
     # The __connect() method tries to execute the connect() function. If the method encounters a ConnectOperationalError exception or a ConnectSomethingWentWrong exception,
@@ -39,7 +40,12 @@ class OperationsDatabase():
             print(e.message)
             return exit(1) # Immediately terminates the program.
         except ConnectSuccess as e:
-            return e.connect.cursor()
+            return e.connect
+
+    def __close(self):
+        self.cur.close()
+        self.con.close()
     
     def __run(self):
-        pass #Next step
+        #Next step
+        self.__close()
