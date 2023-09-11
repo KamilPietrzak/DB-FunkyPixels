@@ -42,6 +42,7 @@ class OperationsDatabase():
         except ConnectSuccess as e:
             return e.connect
 
+    # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
         self.cur.close()
         self.con.close()
