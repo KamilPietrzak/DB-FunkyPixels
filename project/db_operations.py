@@ -12,12 +12,13 @@ import psycopg2 # Import all from the psycopg2 package.
 # The connect() function set autocommit on True and raises a ConnectSuccess exception with a variable called 'connect,' indicating a connection class.
 def connect():
     try:
-      connect=psycopg2.connect(host=getenv('HOST'), port=getenv('PORT'), user=getenv('USER'), password=getenv('PASSWORD'))
+      connect=psycopg2.connect(host=getenv('HOST'), port=getenv('PORT'), user=getenv('USER'), password=getenv('PASSWORD'), dbname="dbfunkypixels")
     except psycopg2.OperationalError:
         raise ConnectOperationalError()
     except Exception as error:
         raise ConnectSomethingWentWrong(error)
     else:
+        connect.autocommit = True
         raise ConnectSuccess(connect)
 
 # A class OperationsDatabase used to execute all required operations, such as 'CREATE TABLE', to create a database.

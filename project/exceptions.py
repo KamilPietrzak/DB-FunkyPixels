@@ -5,13 +5,17 @@ from colorama import * # Import all from the colorama package.
 # Situations in which when psycopg2 raises the OperationalError exception for psycopg2.connect() function:
 # - the .env file is not exist,
 # - some rquired variables is missed,
-# - some of the variable values are incorrect.. 
+# - some of the variable values are incorrect,
+# - the database doesn't exist.
 class ConnectOperationalError(Exception):
     def __init__(self):
-        self.message = Back.RED + Fore.BLACK + "Error:" + Back.RESET + Fore.RED + """ Something went wrong. Probably the .env file isn't exists or some required variables are lacking. \n
+        self.message = Back.RED + Fore.BLACK + "Error:" + Back.RESET + Fore.RED + """ 
+        Something went wrong. It's possible that the .env file doesn't exist or that some required variables are missing, 
+        or that the database doesn't exist.\n
         - Please make sure that there is .env file in the project folder.
         - Please make sure thet there are required variables, like HOST, PORT, USER and PASSWORD, in there .env file.
         - Please make sure that the environments value is correct.
+        - Please make sure that the database called 'dbfunkypixels' exists on your server.
         \nExample project\.env file:\n""" + Fore.YELLOW + """
         HOST = '127.0.0.1'
         PORT = 5432
