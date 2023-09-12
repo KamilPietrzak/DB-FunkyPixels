@@ -41,3 +41,29 @@ class ConnectSomethingWentWrong(Exception):
     def __executexception(self):
         print(self.message)
         return exit(1) #Terminate the program immediately.
+    
+# This defined Exception has a message that provides information about certain problems encountered during the creation of certain extensions.
+# This class is called when __extensioninit() encounters problems while creating certain extensions.
+# The message includes information about which extension wasn't created and the full text of the error.
+class InitExtensionError(Exception):
+    def __init__(self, error, extension):
+        self.message = Back.RED + Fore.BLACK + "Error:" + Back.RESET + Fore.RED + f" During the attempt to create the {extension} extension, something went wrong. Here is the full text of the error: \n" + str(error)
+        self.__executexception()
+
+    # The __executexception() method is used to display the error message and terminate the program immediately.
+    def __executexception(self):
+        print(self.message)
+        return exit(1) #Terminate the program immediately.
+    
+# This defined Exception has a message that provides information about certain problems encountered during the creation of certain tables.
+# This class is called when __tableinit() encounters problems while creating certain tables.
+# The message includes information about which table wasn't created and the full text of the error.    
+class InitTableError(Exception):
+    def __init__(self, error, table):
+        self.message = Back.RED + Fore.BLACK + "Error:" + Back.RESET + Fore.RED + f" During the attempt to create the {table} table, something went wrong. Here is the full text of the error: \n" + str(error)
+        self.__executexception()
+
+    # The __executexception() method is used to display the error message and terminate the program immediately.
+    def __executexception(self):
+        print(self.message)
+        return exit(1) #Terminate the program immediately.

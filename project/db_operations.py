@@ -33,11 +33,45 @@ class OperationsDatabase():
             conn.autocommit = True
             return conn
 
+    # The __extensioninit() method is used to create all the required postgreSQL extensions.
+    # If an exception occurs, the method rolls back all changes, calls the __close() method and raises an InitExtensionError.  
+    def __extensioninit(self):
+
+        # Try to create the uuid-ossp extension.
+        try:
+            self.cur.execute('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitExtensionError(error=error, extension="uuid-ossp")
+        
+
+    # The __tableinit() method is used to create all the required tables. 
+    # If an exception occurs, the method rolls back all changes, calls the __close() method, and raises an InitTableError.   
+    def __tableinit(self):
+
+        # Try to create the users table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS users(
+	            id serial NOT NULL UNIQUE PRIMARY KEY,
+	            UID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),
+	            username varchar(256) NOT NULL UNIQUE,
+	            email varchar(256) NOT NULL UNIQUE,
+	            password varchar(256) NOT NULL,
+	            created date DEFAULT CURRENT_DATE
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="user")
+
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
         self.cur.close()
         self.con.close()
     
     def __run(self):
-        #Next step
+        self.__extensioninit()
+        self.__tableinit()
         self.__close()
