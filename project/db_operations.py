@@ -166,6 +166,18 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="tags")
+        
+        # Try to create the tag_relations table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS tag_relations(
+				tag_id integer NOT NULL REFERENCES tags(id),
+	            post_id integer NOT NULL REFERENCES posts(id)
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="tag_relations")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
