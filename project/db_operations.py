@@ -122,6 +122,22 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="posts")
+        
+        # Try to create the comments table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS comments(
+	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
+	            CID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),
+				post_id integer NOT NULL UNIQUE REFERENCES posts(id),
+	            author_id integer NOT NULL UNIQUE REFERENCES users(id),
+	            body varchar(256) NOT NULL,
+	            created timestamp DEFAULT NOW()
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="comments")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
