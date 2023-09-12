@@ -202,6 +202,18 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="follows")
+        
+        # Try to create the icons table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS icons(
+	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
+	            address varchar(256) NOT NULL
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="icons")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
