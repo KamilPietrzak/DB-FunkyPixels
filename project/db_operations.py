@@ -114,7 +114,7 @@ class OperationsDatabase():
             CREATE TABLE IF NOT EXISTS posts(
 	            id serial NOT NULL UNIQUE PRIMARY KEY,
 	            PID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),
-	            author_id integer NOT NULL UNIQUE REFERENCES users(id),
+	            author_id integer NOT NULL REFERENCES users(id),
 	            title varchar(256) NOT NULL,
 	            created timestamp DEFAULT NOW()
             );""")
@@ -129,8 +129,8 @@ class OperationsDatabase():
             CREATE TABLE IF NOT EXISTS comments(
 	            id serial NOT NULL UNIQUE PRIMARY KEY,
 	            CID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),
-				post_id integer NOT NULL UNIQUE REFERENCES posts(id),
-	            author_id integer NOT NULL UNIQUE REFERENCES users(id),
+				post_id integer NOT NULL REFERENCES posts(id),
+	            author_id integer NOT NULL REFERENCES users(id),
 	            body varchar(256) NOT NULL,
 	            created timestamp DEFAULT NOW()
             );""")
@@ -145,8 +145,8 @@ class OperationsDatabase():
             CREATE TABLE IF NOT EXISTS replies(
 	            id serial NOT NULL UNIQUE PRIMARY KEY,
 	            RID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),
-				comment_id integer NOT NULL UNIQUE REFERENCES comments(id),
-	            author_id integer NOT NULL UNIQUE REFERENCES users(id),
+				comment_id integer NOT NULL REFERENCES comments(id),
+	            author_id integer NOT NULL REFERENCES users(id),
 	            body varchar(256) NOT NULL,
 	            created timestamp DEFAULT NOW()
             );""")
