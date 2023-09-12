@@ -214,6 +214,20 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="icons")
+        
+        # Try to create the achievements table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS achievements(
+	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
+				icon_id integer NOT NULL REFERENCES icons(id),
+	            title varchar(256) NOT NULL UNIQUE,
+	            requirement varchar(256) NOT NULL
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="achievements")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
