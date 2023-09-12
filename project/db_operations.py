@@ -77,6 +77,22 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="roles")
+        
+        # Try to create the admins table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS admins(
+	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
+	            AID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),
+	            role_id smallint NOT NULL REFERENCES roles(id),
+	            user_id integer NOT NULL UNIQUE REFERENCES users(id),
+	            password varchar(256) NOT NULL,
+	            created date DEFAULT CURRENT_DATE
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="admins")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
