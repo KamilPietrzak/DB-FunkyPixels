@@ -107,6 +107,21 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="bans")
+        
+        # Try to create the posts table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS posts(
+	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
+	            PID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),
+	            author_id integer NOT NULL UNIQUE REFERENCES users(id),
+	            title varchar(256) NOT NULL,
+	            created date DEFAULT CURRENT_DATE
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="posts")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
