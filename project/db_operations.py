@@ -190,6 +190,18 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="likes")
+        
+        # Try to create the follows table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS follows(
+				follower_id integer NOT NULL REFERENCES users(id),
+	            followed_id integer NOT NULL REFERENCES users(id)
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="follows")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
