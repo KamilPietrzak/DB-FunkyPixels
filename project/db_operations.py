@@ -116,7 +116,7 @@ class OperationsDatabase():
 	            PID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),
 	            author_id integer NOT NULL UNIQUE REFERENCES users(id),
 	            title varchar(256) NOT NULL,
-	            created date DEFAULT CURRENT_DATE
+	            created timestamp DEFAULT NOW()
             );""")
         except Exception as error:
             self.con.rollback() # Back all changes.
