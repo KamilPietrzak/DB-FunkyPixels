@@ -70,7 +70,7 @@ class OperationsDatabase():
         try:
             self.cur.execute("""
             CREATE TABLE IF NOT EXISTS roles(
-	            id serial NOT NULL UNIQUE PRIMARY KEY,
+	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
 	            role varchar(255) NOT NULL UNIQUE
             );""")
         except Exception as error:
@@ -98,7 +98,7 @@ class OperationsDatabase():
         try:
             self.cur.execute("""
             CREATE TABLE IF NOT EXISTS bans(
-	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
+	            id serial NOT NULL UNIQUE PRIMARY KEY,
 	            user_id integer NOT NULL UNIQUE REFERENCES users(id),
 	            comment varchar(256) NOT NULL,
 	            deadline date DEFAULT CURRENT_DATE
@@ -112,7 +112,7 @@ class OperationsDatabase():
         try:
             self.cur.execute("""
             CREATE TABLE IF NOT EXISTS posts(
-	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
+	            id serial NOT NULL UNIQUE PRIMARY KEY,
 	            PID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),
 	            author_id integer NOT NULL UNIQUE REFERENCES users(id),
 	            title varchar(256) NOT NULL,
@@ -127,7 +127,7 @@ class OperationsDatabase():
         try:
             self.cur.execute("""
             CREATE TABLE IF NOT EXISTS comments(
-	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
+	            id serial NOT NULL UNIQUE PRIMARY KEY,
 	            CID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),
 				post_id integer NOT NULL UNIQUE REFERENCES posts(id),
 	            author_id integer NOT NULL UNIQUE REFERENCES users(id),
