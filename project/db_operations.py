@@ -296,6 +296,18 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="settings")
+        
+        # Try to create the reasons table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS reasons(
+	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
+	            reason varchar(256) NOT NULL UNIQUE
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="reasons")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
