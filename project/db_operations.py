@@ -240,6 +240,21 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="achievement_relations")
+        
+        # Try to create the profiles table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS profiles(
+	            id serial NOT NULL UNIQUE PRIMARY KEY,
+	            user_id integer NOT NULL REFERENCES users(id),
+	            address varchar(256) NOT NULL UNIQUE,
+				enargement varchar(256) NOT NULL,
+	            deleted date DEFAULT CURRENT_DATE
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="profiles")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
