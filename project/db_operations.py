@@ -458,6 +458,22 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="post_notifications")
+        
+       # Try to create the comment_notifications table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS comment_notifications(
+	            id serial NOT NULL UNIQUE PRIMARY KEY,
+				user_id integer NOT NULL REFERENCES users(id),
+				comment_id integer NOT NULL REFERENCES comments(id),
+				type_id smallint NOT NULL REFERENCES notification_types(id),
+	            displayed boolean NOT NULL DEFAULT False,
+				created timestamp NOT NULL DEFAULT NOW()
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="comment_notifications")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
