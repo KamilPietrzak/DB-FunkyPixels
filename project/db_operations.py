@@ -255,6 +255,21 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="profiles")
+        
+        # Try to create the medias table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS medias(
+	            id serial NOT NULL UNIQUE PRIMARY KEY,
+	            post_id integer NOT NULL REFERENCES posts(id),
+	            address varchar(256) NOT NULL UNIQUE,
+				enargement varchar(256) NOT NULL,
+	            deleted date DEFAULT CURRENT_DATE
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="medias")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
