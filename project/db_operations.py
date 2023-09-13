@@ -208,7 +208,7 @@ class OperationsDatabase():
             self.cur.execute("""
             CREATE TABLE IF NOT EXISTS icons(
 	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
-	            address varchar(256) NOT NULL
+	            address varchar(256) NOT NULL UNIQUE
             );""")
         except Exception as error:
             self.con.rollback() # Back all changes.
