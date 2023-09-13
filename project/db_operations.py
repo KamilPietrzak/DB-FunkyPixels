@@ -418,6 +418,7 @@ class OperationsDatabase():
 	            id serial NOT NULL UNIQUE PRIMARY KEY,
 				user_id integer NOT NULL REFERENCES users(id),
 				achievement_id smallint NOT NULL REFERENCES achievements(id),
+                type_id smallint NOT NULL REFERENCES notification_types(id),
 	            displayed boolean NOT NULL DEFAULT False,
 				created timestamp NOT NULL DEFAULT NOW()
             );""")
