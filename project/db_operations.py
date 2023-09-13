@@ -270,6 +270,19 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="medias")
+        
+        # Try to create the themes table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS themes(
+	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
+	            name varchar(256) NOT NULL,
+				dev varchar(256) NOT NULL UNIQUE
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="themes")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
