@@ -338,6 +338,21 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="reported_replies")
+        
+        # Try to create the reported_comments table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS reported_comments(
+	            id serial NOT NULL UNIQUE PRIMARY KEY,
+	            comment_id integer NOT NULL REFERENCES comments(id),
+				reason_id smallint NOT NULL REFERENCES reasons(id),
+				assigned date,
+				created date NOT NULL DEFAULT CURRENT_DATE
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="reported_comments")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
