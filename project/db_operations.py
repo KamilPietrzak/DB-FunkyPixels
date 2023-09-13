@@ -383,6 +383,20 @@ class OperationsDatabase():
             self.con.rollback() # Back all changes.
             self.__close()
             raise InitTableError(error=error, table="reported_users")
+        
+        # Try to create the notification_types table.
+        try:
+            self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS notification_types(
+	            id smallserial NOT NULL UNIQUE PRIMARY KEY,
+	            icon_id smallint NOT NULL REFERENCES icons(id),
+				type varchar(256) NOT NULL,
+				body varchar(256) NOT NULL
+            );""")
+        except Exception as error:
+            self.con.rollback() # Back all changes.
+            self.__close()
+            raise InitTableError(error=error, table="notification_types")
 
     # The __close() method is used to close the cursor and connection with the database server.
     def __close(self):
