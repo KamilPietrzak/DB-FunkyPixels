@@ -246,7 +246,7 @@ class OperationsDatabase():
             self.cur.execute("""
             CREATE TABLE IF NOT EXISTS profiles(
 	            id serial NOT NULL UNIQUE PRIMARY KEY,
-	            user_id integer NOT NULL REFERENCES users(id),
+	            user_id integer NOT NULL UNIQUE REFERENCES users(id),
 	            address varchar(256) NOT NULL UNIQUE,
 				enargement varchar(256) NOT NULL,
 	            deleted date DEFAULT CURRENT_DATE
