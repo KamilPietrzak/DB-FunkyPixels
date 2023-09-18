@@ -11,8 +11,7 @@ from colorama import * # Import all from the colorama package.
 # The __executexception() method is used to display the error message and terminate the program immediately.
 class ConnectOperationalError(Exception):
     def __init__(self):
-        self.message = f"""{Back.RED}{Fore.BLACK}Error: {Back.RESET}{Fore.RED}
-        Something went wrong. It's possible that the .env file doesn't exist or that some required variables are missing, 
+        self.message = f"""{Back.RED}{Fore.BLACK}Error:{Back.RESET}{Fore.RED} Something went wrong. It's possible that the .env file doesn't exist or that some required variables are missing, 
         or that the database doesn't exist.\n
         - Please make sure that there is .env file in the project folder.
         - Please make sure thet there are required variables, like HOST, PORT, USER and PASSWORD, in there .env file.
@@ -35,7 +34,7 @@ class ConnectOperationalError(Exception):
 # The __executexception() method is used to display the error message and terminate the program immediately.
 class ConnectSomethingWentWrong(Exception):
     def __init__(self, error):
-        self.message = f"{Back.RED}{Fore.BLACK}Error: {Back.RESET}{Fore.RED}{str(error)}"
+        self.message = f"{Back.RED}{Fore.BLACK}Error:{Back.RESET}{Fore.RED} {str(error)}"
         self.__executexception()
 
     def __executexception(self):
@@ -47,7 +46,7 @@ class ConnectSomethingWentWrong(Exception):
 # The message includes information about which extension wasn't created and the full text of the error.
 class InitExtensionError(Exception):
     def __init__(self, error, extension):
-        self.message = f"""{Back.RED}{Fore.BLACK}Error: {Back.RESET}{Fore.RED}During the attempt to create the {extension} extension, 
+        self.message = f"""{Back.RED}{Fore.BLACK}Error:{Back.RESET}{Fore.RED} During the attempt to create the {extension} extension, 
         something went wrong. Here is the full text of the error: \n {str(error)}"""
         self.__executexception()
 
@@ -61,7 +60,7 @@ class InitExtensionError(Exception):
 # The message includes information about which table wasn't created and the full text of the error.    
 class InitTableError(Exception):
     def __init__(self, error, table):
-        self.message = f"""{Back.RED}{Fore.BLACK}Error: {Back.RESET}{Fore.RED}During the attempt to create the {table} table, something went wrong. 
+        self.message = f"""{Back.RED}{Fore.BLACK}Error:{Back.RESET}{Fore.RED} During the attempt to create the {table} table, something went wrong. 
         Here is the full text of the error: \n {str(error)}"""
         self.__executexception()
 
