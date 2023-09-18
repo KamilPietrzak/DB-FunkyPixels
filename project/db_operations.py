@@ -1,8 +1,10 @@
+# Import packages
 from os import getenv # Import getenv function from os.
 from colorama import * # Import all from the colorama package.
-from exceptions import * # Import exceptions function from exceptions.py.
 import psycopg2 # Import all from the psycopg2 package.
 import json # Import all from the json package.
+# Import files
+from exceptions import * # Import exceptions function from exceptions.py.
 
 # A function used to execute a database connection and raise the appropriate exception with specified parameters.
 # If psycopg2.connect() raises an OperationalError, then the connect() function raises a ConnectOperationalError without parameters.

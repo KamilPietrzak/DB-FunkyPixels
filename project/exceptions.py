@@ -1,3 +1,4 @@
+# Import packages
 from sys import exit # Import exit function from sys.
 from colorama import * # Import all from the colorama package.
 

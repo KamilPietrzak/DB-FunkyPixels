@@ -1,3 +1,4 @@
+# Import packages
 from colorama import * # Import all from the colorama package.
 
 # A function for print banner and providing information about the repository and the project.
