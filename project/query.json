@@ -1,0 +1,134 @@
+{
+    "extensions":[
+        {
+            "name": "uuid-ossp",
+            "query": "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+        }
+    ],
+    "tables":[
+        {
+            "name": "Users",
+            "query": "CREATE TABLE IF NOT EXISTS users(id serial NOT NULL UNIQUE PRIMARY KEY,UID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),username varchar(256) NOT NULL UNIQUE,email varchar(256) NOT NULL UNIQUE,password varchar(256) NOT NULL,created date DEFAULT CURRENT_DATE);"
+        },
+        {
+            "name": "Roles",
+            "query": "CREATE TABLE IF NOT EXISTS roles(id smallserial NOT NULL UNIQUE PRIMARY KEY,role varchar(255) NOT NULL UNIQUE);"
+        },
+        {
+            "name": "Admins",
+            "query": "CREATE TABLE IF NOT EXISTS admins(id smallserial NOT NULL UNIQUE PRIMARY KEY,AID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),role_id smallint NOT NULL REFERENCES roles(id),user_id integer NOT NULL UNIQUE REFERENCES users(id),password varchar(256) NOT NULL,created date DEFAULT CURRENT_DATE);"
+        },
+        {
+            "name": "Bans",
+            "query": "CREATE TABLE IF NOT EXISTS bans(id serial NOT NULL UNIQUE PRIMARY KEY,user_id integer NOT NULL UNIQUE REFERENCES users(id),comment varchar(256) NOT NULL,deadline date DEFAULT CURRENT_DATE);"
+        },
+        {
+            "name": "Posts",
+            "query": "CREATE TABLE IF NOT EXISTS posts(id serial NOT NULL UNIQUE PRIMARY KEY,PID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),author_id integer NOT NULL REFERENCES users(id),title varchar(256) NOT NULL,created timestamp DEFAULT NOW());"
+        },
+        {
+            "name": "Comments",
+            "query": "CREATE TABLE IF NOT EXISTS comments(id serial NOT NULL UNIQUE PRIMARY KEY,CID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),post_id integer NOT NULL REFERENCES posts(id),author_id integer NOT NULL REFERENCES users(id),body varchar(256) NOT NULL,created timestamp DEFAULT NOW());"
+        },
+        {
+            "name": "Replies",
+            "query": "CREATE TABLE IF NOT EXISTS replies(id serial NOT NULL UNIQUE PRIMARY KEY,RID UUID NOT NULL UNIQUE DEFAULT uuid_generate_v1(),comment_id integer NOT NULL REFERENCES comments(id),author_id integer NOT NULL REFERENCES users(id),body varchar(256) NOT NULL,created timestamp DEFAULT NOW());"
+        },
+        {
+            "name": "Tags",
+            "query": "CREATE TABLE IF NOT EXISTS tags(id serial NOT NULL UNIQUE PRIMARY KEY,tag varchar(256) NOT NULL);"
+        },
+        {
+            "name": "Tag Relations",
+            "query": "CREATE TABLE IF NOT EXISTS tag_relations(tag_id integer NOT NULL REFERENCES tags(id),post_id integer NOT NULL REFERENCES posts(id));"
+        },
+        {
+            "name": "Likes",
+            "query": "CREATE TABLE IF NOT EXISTS likes(post_id integer NOT NULL REFERENCES posts(id),user_id integer NOT NULL REFERENCES users(id));"
+        },
+        {
+            "name": "Follows",
+            "query": "CREATE TABLE IF NOT EXISTS follows(follower_id integer NOT NULL REFERENCES users(id),followed_id integer NOT NULL REFERENCES users(id));"
+        },
+        {
+            "name": "Icons",
+            "query": "CREATE TABLE IF NOT EXISTS icons(id smallserial NOT NULL UNIQUE PRIMARY KEY,address varchar(256) NOT NULL UNIQUE);"
+        },
+        {
+            "name": "Achievements",
+            "query": "CREATE TABLE IF NOT EXISTS achievements(id smallserial NOT NULL UNIQUE PRIMARY KEY,icon_id integer NOT NULL REFERENCES icons(id),title varchar(256) NOT NULL UNIQUE,requirement varchar(256) NOT NULL);"
+        },
+        {
+            "name": "Achievement Relations",
+            "query": "CREATE TABLE IF NOT EXISTS achievement_relations(user_id integer NOT NULL REFERENCES users(id),achievements_id smallint NOT NULL REFERENCES achievements(id));"
+        },
+        {
+            "name": "Profiles",
+            "query": "CREATE TABLE IF NOT EXISTS profiles(id serial NOT NULL UNIQUE PRIMARY KEY,user_id integer NOT NULL UNIQUE REFERENCES users(id),address varchar(256) NOT NULL UNIQUE,enargement varchar(256) NOT NULL,deleted date DEFAULT CURRENT_DATE);"
+        },
+        {
+            "name": "Medias",
+            "query": "CREATE TABLE IF NOT EXISTS medias(id serial NOT NULL UNIQUE PRIMARY KEY,post_id integer NOT NULL REFERENCES posts(id),address varchar(256) NOT NULL UNIQUE,enargement varchar(256) NOT NULL,deleted date DEFAULT CURRENT_DATE);"
+        },
+        {
+            "name": "Themes",
+            "query": "CREATE TABLE IF NOT EXISTS themes(id smallserial NOT NULL UNIQUE PRIMARY KEY,name varchar(256) NOT NULL,dev varchar(256) NOT NULL UNIQUE);"
+        },
+        {
+            "name": "Settings",
+            "query": "CREATE TABLE IF NOT EXISTS settings(id serial NOT NULL UNIQUE PRIMARY KEY,user_id integer NOT NULL UNIQUE REFERENCES users(id),theme_id smallint REFERENCES themes(id));"
+        },
+        {
+            "name": "Reasons",
+            "query": "CREATE TABLE IF NOT EXISTS reasons(id smallserial NOT NULL UNIQUE PRIMARY KEY,reason varchar(256) NOT NULL UNIQUE);"
+        },
+        {
+            "name": "Reported Admins",
+            "query": "CREATE TABLE IF NOT EXISTS reported_admins(id serial NOT NULL UNIQUE PRIMARY KEY,admin_id smallint NOT NULL REFERENCES admins(id),reason_id smallint NOT NULL REFERENCES reasons(id),assigned date,created date NOT NULL DEFAULT CURRENT_DATE);"
+        },
+        {
+            "name": "Reported Replies",
+            "query": "CREATE TABLE IF NOT EXISTS reported_replies(id serial NOT NULL UNIQUE PRIMARY KEY,replie_id integer NOT NULL REFERENCES replies(id),reason_id smallint NOT NULL REFERENCES reasons(id),assigned date,created date NOT NULL DEFAULT CURRENT_DATE);"
+        },
+        {
+            "name": "Reported Comments",
+            "query": "CREATE TABLE IF NOT EXISTS reported_comments(id serial NOT NULL UNIQUE PRIMARY KEY,comment_id integer NOT NULL REFERENCES comments(id),reason_id smallint NOT NULL REFERENCES reasons(id),assigned date,created date NOT NULL DEFAULT CURRENT_DATE);"
+        },
+        {
+            "name": "Reported Posts",
+            "query": "CREATE TABLE IF NOT EXISTS reported_posts(id serial NOT NULL UNIQUE PRIMARY KEY,post_id integer NOT NULL REFERENCES posts(id),reason_id smallint NOT NULL REFERENCES reasons(id),assigned date,created date NOT NULL DEFAULT CURRENT_DATE);"
+        },
+        {
+            "name": "Reported Users",
+            "query": "CREATE TABLE IF NOT EXISTS reported_users(id serial NOT NULL UNIQUE PRIMARY KEY,user_id integer NOT NULL REFERENCES users(id),reason_id smallint NOT NULL REFERENCES reasons(id),assigned date,created date NOT NULL DEFAULT CURRENT_DATE);"
+        },
+        {
+            "name": "Notification Types",
+            "query": "CREATE TABLE IF NOT EXISTS notification_types(id smallserial NOT NULL UNIQUE PRIMARY KEY,icon_id smallint NOT NULL REFERENCES icons(id),type varchar(256) NOT NULL,body varchar(256) NOT NULL);"
+        },
+        {
+            "name": "Administration Notifications",
+            "query": "CREATE TABLE IF NOT EXISTS administration_notifications(id serial NOT NULL UNIQUE PRIMARY KEY,type_id smallint NOT NULL REFERENCES notification_types(id),created timestamp NOT NULL DEFAULT NOW());"
+        },
+        {
+            "name": "Achievement Notifications",
+            "query": "CREATE TABLE IF NOT EXISTS achievement_notifications(id serial NOT NULL UNIQUE PRIMARY KEY,user_id integer NOT NULL REFERENCES users(id),achievement_id smallint NOT NULL REFERENCES achievements(id),type_id smallint NOT NULL REFERENCES notification_types(id),displayed boolean NOT NULL DEFAULT False,created timestamp NOT NULL DEFAULT NOW());"
+        },
+        {
+            "name": "User Notifications",
+            "query": "CREATE TABLE IF NOT EXISTS user_notifications(id serial NOT NULL UNIQUE PRIMARY KEY,user_id integer NOT NULL REFERENCES users(id),follower_id integer NOT NULL REFERENCES users(id),type_id smallint NOT NULL REFERENCES notification_types(id),displayed boolean NOT NULL DEFAULT False,created timestamp NOT NULL DEFAULT NOW());"
+        },
+        {
+            "name": "Post Notifications",
+            "query": "CREATE TABLE IF NOT EXISTS post_notifications(id serial NOT NULL UNIQUE PRIMARY KEY,user_id integer NOT NULL REFERENCES users(id),post_id integer NOT NULL REFERENCES posts(id),type_id smallint NOT NULL REFERENCES notification_types(id),displayed boolean NOT NULL DEFAULT False,created timestamp NOT NULL DEFAULT NOW());"
+        },
+        {
+            "name": "Comment Notifications",
+            "query": "CREATE TABLE IF NOT EXISTS comment_notifications(id serial NOT NULL UNIQUE PRIMARY KEY,user_id integer NOT NULL REFERENCES users(id),comment_id integer NOT NULL REFERENCES comments(id),type_id smallint NOT NULL REFERENCES notification_types(id),displayed boolean NOT NULL DEFAULT False,created timestamp NOT NULL DEFAULT NOW());"
+        },
+        {
+            "name": "Replie Notifications",
+            "query": "CREATE TABLE IF NOT EXISTS replie_notifications(id serial NOT NULL UNIQUE PRIMARY KEY,user_id integer NOT NULL REFERENCES users(id),replie_id integer NOT NULL REFERENCES replies(id),type_id smallint NOT NULL REFERENCES notification_types(id),displayed boolean NOT NULL DEFAULT False,created timestamp NOT NULL DEFAULT NOW());"
+        }
+    ]
+}
