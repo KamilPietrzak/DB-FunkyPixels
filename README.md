@@ -1,41 +1,75 @@
 <p align="center">
-  <img src="https://pub-36399e9fe63f47ea950608686819ce35.r2.dev/project_funkypixels_logo.webp" alt="Funky Pixels logo." height=150 width=150>
+  <img src="https://space.monetapietrzak.com/project_funkypixels_logo.webp" alt="Funky Pixels logo." height=150 width=150>
 </p>
 <h1 align="center">DB Funky Pixels</h1>
 <p align="center">
   Database project in <b>🐘PostgreSQL🐘</b> for small and simplified social platform based on the idea of <a href="https://kwejk.pl/" alt="Link to kwejk.pl.">kwejk</a>.
 </p>
 
-<p align="center">
-  <img src="https://pub-36399e9fe63f47ea950608686819ce35.r2.dev/project_funkypixels_schema.svg" alt="Database schema made in www.draw.io">
-</p>
-<p><i>Database schema made in www.draw.io.</i></p>
-
-<h2>ℹ️ About Funky Pixels</h2>
-<p>Funky Pixels is social platform project, created to share humorous multimedia content.
+## ℹ️ About Funky Pixels
+Funky Pixels is social platform project, created to share humorous multimedia content.
 
 The idea for this project comes from an initiative that me and my friends took in high school. Unfortunately, due to lack of skills and experience, the project was terminated after three years of work and was never completed. Because I enjoy fixing things that don't work properly, and I find it an interesting challenge, I decided to try again after more than a year and a half break.
 
 It is worth remembering that the project was prepared for educational purposes, with some simplifications, and is not intended to create a real product.</p>
 
-<h2>💾 Funky Pixels repos</h2>
-<ul>
-  <li><a href="https://github.com/KamilPietrzak/DB-FunkyPixels" alt="Link to repo with a database.">KamilPietrzak/DB-FunkyPixels</a> - Database project in <b>🐘PostgreSQL🐘</b> for small and simplified social platform based on the idea of <a href="https://kwejk.pl/" alt="Link to kwejk.pl.">kwejk</a>.</li>
-</ul>
+## 💾 Funky Pixels repos 
+* [KamilPietrzak/DB-FunkyPixels](https://github.com/KamilPietrzak/DB-FunkyPixels "Link to repo with a database.") - Database project in **🐘PostgreSQL🐘** for small and simplified social platform based on the idea of [kwejk](https://kwejk.pl/ "Link to kwejk.pl.").
 
-<h2>🤖 Information on the use of AI</h2>
-<p><b>Logo/<a href="logo.webp" alt="Link to logo.webp file.">logo.webp</a></b></p>
-<p>Logo created by <a href="https://app.leonardo.ai" alt="Link to Leonardo.ai.">Leonardo.ai</a>. Model Leonardo Diffusion.
+## ▶️ Run project
+There are 2 ways to start a repository.
+
+### Start with conda
+Create a conda environment by following the command:
+
+<code>conda env create -f environment.yml</code>
+
+Also, if you already have an environment, you can update it:
+
+<code>conda env update -f environment.yml</code>
+
+### Star with venv
+Create venv:
+
+<code>python -m venv venv</code>
+
+Activate venv:
+
+Linux: <code>source venv/bin/activate</code>
+
+Windows: <code>venv\Scripts\activate</code>
+
+Back to repo folder and install <code>requirements.txt</code>:
+
+<code>pip install -r requirements.txt</code>
+
+
+-----------------------------------------
+### Run project:
+> **Notice:** Before you run the project, you need to create a <code>.env</code> file in the <code>/project</code> folder. The <code>.env</code> file must include all the required variables to establish a connection. <br>
+> Example: <br>
+> HOST = '127.0.0.1' <br>
+> PORT = 5432 <br>
+> USER= 'postgres' <br>
+> PASSWORD = 'password'
+
+**To start the project, follow:**
+
+<code>python project/run.py</code>
+
+
+## 🤖 Information on the use of AI ##
+**Logo**
+Logo created by [Leonardo.ai](https://app.leonardo.ai "Link to Leonardo.ai."). Model Leonardo Diffusion.
   
-<span>Prompt:</span>
+*Prompt:*
 <code>An image showing a cartoon version of the silhouette of a Corgi dog's muzzle from the doge meme. Picture in style Synthwave.</code>
 
-<span>Negative prompt:</span>
+*Negative prompt:*
 <code>Don't genre the whole dog silhouette.</code>
 
-<br>
-<h2>📜 <a href="LICENSE">LICENSE</a></h2>
-<p>
+## 📜 [LICENSE](LICENSE "Licence")
+
 MIT License
 
 Copyright (c) 2023 Kamil Pietrzak 'Moneta'
@@ -57,7 +91,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-</p>
+
 
 <h2>📫 Contact</h2>
 <br>
