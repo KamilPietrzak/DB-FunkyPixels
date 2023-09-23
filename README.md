@@ -20,7 +20,7 @@ It is worth remembering that the project was prepared for educational purposes, 
 There are 2 ways to start a repository.
 
 ### Start with conda
-Create a conda environment by following the command:
+1. Create a conda environment by following the command:
 
 <code>conda env create -f environment.yml</code>
 
@@ -28,24 +28,30 @@ Also, if you already have an environment, you can update it:
 
 <code>conda env update -f environment.yml</code>
 
+2. Activate a conda enviroment:
+
+<code>conda activate db-funky_pixels</code>
+
 ### Star with venv
-Create venv:
+1. Create venv:
 
 <code>python -m venv venv</code>
 
-Activate venv:
+2. Activate venv:
 
 Linux: <code>source venv/bin/activate</code>
 
 Windows: <code>venv\Scripts\activate</code>
 
-Back to repo folder and install <code>requirements.txt</code>:
+3. Back to repo folder and install <code>requirements.txt</code>:
 
 <code>pip install -r requirements.txt</code>
 
 
 -----------------------------------------
 ### Run project:
+> **Notice:** Before you run the project, you need to create a database named <code>dbfunkypixels</code> in your database server.
+
 > **Notice:** Before you run the project, you need to create a <code>.env</code> file in the <code>/project</code> folder. The <code>.env</code> file must include all the required variables to establish a connection. <br>
 > Example: <br>
 > HOST = '127.0.0.1' <br>
