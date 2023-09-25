@@ -22,30 +22,47 @@ There are 2 ways to start a repository.
 ### Start with conda
 1. Create a conda environment by following the command:
 
-<code>conda env create -f environment.yml</code>
+```
+conda env create -f environment.yml
+```
 
 Also, if you already have an environment, you can update it:
 
-<code>conda env update -f environment.yml</code>
+```
+conda env update -f environment.yml
+```
 
 2. Activate a conda enviroment:
 
-<code>conda activate db-funky_pixels</code>
+```
+conda activate db-funky_pixels
+```
 
 ### Star with venv
+> **Notice:** Before you run the project, you need to install Python 3.10.x
 1. Create venv:
 
-<code>python -m venv venv</code>
+```
+python -m venv venv
+```
 
 2. Activate venv:
 
-Linux: <code>source venv/bin/activate</code>
+Linux: 
+```
+source venv/bin/activate
+```
 
-Windows: <code>venv\Scripts\activate</code>
+Windows: 
+```
+venv\Scripts\activate
+```
 
 3. Back to repo folder and install <code>requirements.txt</code>:
 
-<code>pip install -r requirements.txt</code>
+```
+pip install -r requirements.txt
+```
 
 
 -----------------------------------------
@@ -61,7 +78,9 @@ Windows: <code>venv\Scripts\activate</code>
 
 **To start the project, follow:**
 
-<code>python project/run.py</code>
+```
+python project/run.py
+```
 
 
 ## 🤖 Information on the use of AI ##
